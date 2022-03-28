@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app import create_db
-import os
+#from app import create_db
+#import os
 #persistent_path = os.getenv("PERSISTENT_STORAGE_DIR")
 
 app = Flask(__name__)

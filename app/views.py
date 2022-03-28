@@ -2,10 +2,12 @@ from app import app, db
 from flask import render_template, request, jsonify
 from app.models import Author, Book
 
-data = [{"title": "Harry", "author": "JK Rowling"}, {"title": "Lord of Rings", "author": "Whoever"}]
-
 @app.route("/", methods=["GET"])
 def home():
+    books = db.session.query(Book, Author).filter(Book.author_id == Author.author_id).all()
+    return render_template("index.html", books=books)
+
+    """ less efficient logic
     books = db.session.query(Book).all()
     books_list = []
 
@@ -15,6 +17,7 @@ def home():
         books_list.append(book_object)
 
     return render_template("index.html", books=books_list)
+    """
 
 @app.route("/get-book-row/<int:id>", methods=["GET"])
 def get_book_row(id):
