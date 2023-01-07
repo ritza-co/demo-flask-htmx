@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from app import create_db
 import os
-persistent_path = os.getenv("PERSISTENT_STORAGE_DIR")
+persistent_path = os.getenv("PERSISTENT_STORAGE_DIR", os.path.dirname(os.path.realpath(__file__)))
 
 app = Flask(__name__)
 
@@ -18,4 +18,6 @@ from app import views
 from app import models
 
 db.init_app(app)
-db.create_all() 
+
+with app.app_context():
+    db.create_all() 
